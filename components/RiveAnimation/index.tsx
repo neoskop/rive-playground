@@ -3,7 +3,7 @@ import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
 import clsx from "clsx";
 import styles from "./styles.module.scss";
 
-type Props = {
+type RiveAnimationProps = {
   src: string;
   artboard: string;
   prevArtboard: boolean;
@@ -15,7 +15,7 @@ const RiveAnimation = ({
   artboard,
   prevArtboard,
   dismantleDuration = 300,
-}: Props) => {
+}: RiveAnimationProps) => {
   const { RiveComponent } = useRive({
     src: src,
     stateMachines: "State Machine",
