@@ -1,7 +1,10 @@
+"use client";
+
 import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
 
 import clsx from "clsx";
 import styles from "./styles.module.scss";
+import { useEffect } from "react";
 
 type RiveAnimationProps = {
   src: string;
@@ -27,13 +30,17 @@ const RiveAnimation = ({
     }),
   });
 
+  useEffect(() => {
+    console.log(prevArtboard);
+  }, [prevArtboard]);
+
   return (
     <div
       className={clsx(styles.container, prevArtboard && styles.prev)}
       key={artboard}
       style={
         {
-          "--dismantle-duration": `${dismantleDuration}ms`,
+          "--dismantle-duration": `${dismantleDuration}s`,
         } as React.CSSProperties
       }
     >

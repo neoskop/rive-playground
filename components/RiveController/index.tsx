@@ -13,28 +13,52 @@ type Artboard = {
 type RiveControllerProps = {
   src: string;
   artboards: Artboard[];
+  initialArtboard: string;
 };
 
-const RiveController = ({ src, artboards }: RiveControllerProps) => {
+const RiveController = ({
+  src,
+  artboards,
+  initialArtboard,
+}: RiveControllerProps) => {
+  const animateRef = useRef<SVGAnimateElement | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const dismantleDuration: number = 300;
 
-  const [artboard, setArtboard] = useState<string>("Step-1");
-  const [prevArtboard, setPrevArtboard] = useState<string>();
+  const dismantleDuration: number = 0.3;
+
+  const [prevArtboard, setPrevArtboard] = useState<string>("Step-6");
+  const [nextArtboard, setNextArtboard] = useState<string>(initialArtboard);
+  const [artboard, setArtboard] = useState<string>(initialArtboard);
 
   const changeArtboard = (newArtboardName: string) => {
     setPrevArtboard(artboard);
+    setNextArtboard(newArtboardName);
+
+    animateRef?.current?.beginElement();
+
     timeoutRef.current = setTimeout(() => {
       setArtboard(newArtboardName);
-    }, dismantleDuration);
+    }, dismantleDuration * 1000);
   };
 
-  const getCurrentMask = () => {
-    const currentArtboard = artboards.find(
-      (artboardObj) => artboardObj.name === artboard
+  const getNextMask = () => {
+    const currentArtboardObj = artboards.find(
+      (artboardObj) => artboardObj.name === nextArtboard
     );
 
-    return `path("${currentArtboard?.mask}")`;
+    return currentArtboardObj?.mask;
+  };
+
+  useEffect(() => {
+    console.log(prevArtboard);
+  }, [prevArtboard]);
+
+  const getPrevMask = () => {
+    const prevArtboardObj = artboards.find(
+      (artboardObj) => artboardObj.name === prevArtboard
+    );
+
+    return prevArtboardObj?.mask;
   };
 
   useEffect(() => {
@@ -51,15 +75,29 @@ const RiveController = ({ src, artboards }: RiveControllerProps) => {
         width="480"
         height="480"
       >
-        <clipPath id="mask" clipPathUnits="objectBoundingBox">
+        <clipPath id="clip-path" clipPathUnits="objectBoundingBox">
           <path
+            id="mask"
+            d={getNextMask()}
             style={
               {
-                d: getCurrentMask(),
-                "--dismantle-duration": `${dismantleDuration * 2}ms`,
+                "--dismantle-duration": `${dismantleDuration}s`,
               } as React.CSSProperties
             }
             className={styles["clip-path"]}
+          />
+          <animate
+            href="#mask"
+            attributeName="d"
+            attributeType="XML"
+            from={getPrevMask()}
+            to={getNextMask()}
+            repeatCount="1"
+            begin="0s"
+            dur={`${dismantleDuration}s`}
+            fill="freeze"
+            restart="whenNotActive"
+            ref={animateRef}
           />
         </clipPath>
       </svg>
