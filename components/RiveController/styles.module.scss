@@ -13,12 +13,12 @@
 
 .mask {
   clip-path: url(#mask);
-  width: calc(458px + 2rem);
-  height: calc(458px + 2rem);
+  width: calc(458px + 1rem);
+  height: calc(458px + 1rem);
 }
 
 .artboard {
-  padding: 1rem 1rem;
+  padding: 0.5rem;
   width: 458px;
   height: 458px;
   background-color: #f5e6f5;
