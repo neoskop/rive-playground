@@ -5,16 +5,16 @@
   width: 100%;
   height: 100vh;
   flex-direction: column;
-}
-
-.mask {
-  clip-path: url(#mask);
-  width: calc(458px);
-  height: calc(480px);
 
   svg {
     height: 0;
   }
+}
+
+.mask {
+  clip-path: url(#mask);
+  width: 480px;
+  height: 480px;
 }
 
 .clip-path {
@@ -22,8 +22,8 @@
 }
 
 .artboard {
-  width: 458px;
-  height: 480px;
+  width: 100%;
+  height: 100%;
   background-color: #f5e6f5;
 }
 
