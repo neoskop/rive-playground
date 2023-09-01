@@ -49,10 +49,6 @@ const RiveController = ({
     return currentArtboardObj?.mask;
   };
 
-  useEffect(() => {
-    console.log(prevArtboard);
-  }, [prevArtboard]);
-
   const getPrevMask = () => {
     const prevArtboardObj = artboards.find(
       (artboardObj) => artboardObj.name === prevArtboard
