@@ -63,7 +63,7 @@ const RiveController = ({ src }: Props) => {
             style={
               {
                 d: `path("${masks[index]}")`,
-                "--dismantleDuration": `${dismantleDuration * 2}ms`,
+                "--dismantle-duration": `${dismantleDuration * 2}ms`,
               } as React.CSSProperties
             }
             className={styles["clip-path"]}

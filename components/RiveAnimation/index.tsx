@@ -33,7 +33,7 @@ const RiveAnimation = ({
       key={artboard}
       style={
         {
-          "--dismantleDuration": `${dismantleDuration}ms`,
+          "--dismantle-duration": `${dismantleDuration}ms`,
         } as React.CSSProperties
       }
     >
